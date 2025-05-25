@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Planificador de Rutas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🚚 Planificador de Rutas con Dijkstra</h1>
+
+    {% if mensaje %}
+        <p class="msg">{{ mensaje }}</p>
+    {% endif %}
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    {% if ruta %}
+        <p class="ruta">Ruta óptima: {{ ruta | join(" → ") }} <br> Costo total: {{ costo }}</p>
+    {% endif %}
+
+    <h2>Agregar Paquete</h2>
+    <form action="/agregar_paquete" method="post">
+        Destino: <input name="destino" required>
+        Latitud: <input name="lat" required>
+        Longitud: <input name="lon" required>
+        <button>Agregar</button>
+    </form>
+
+    <h2>Agregar Ruta</h2>
+    <form action="/agregar_ruta" method="post">
+        Origen: <input name="origen" required>
+        Destino: <input name="destino" required>
+        Peso: <input name="peso" required>
+        <button>Agregar</button>
+    </form>
+
+    <h2>Calcular Ruta</h2>
+    <form action="/calcular_ruta" method="post">
+        Desde: <input name="inicio" required>
+        Hasta: <input name="fin" required>
+        <button>Calcular</button>
+    </form>
+
+    <h3>Paquetes Agregados:</h3>
+    <ul>
+        {% for p in paquetes %}
+            <li>{{ p.destino }} ({{ p.lat }}, {{ p.lon }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
